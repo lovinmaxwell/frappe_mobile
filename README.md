@@ -1,10 +1,3 @@
-## Deprecation Warning
-
-We are deprecating mobile apps as [discussed here](https://discuss.erpnext.com/t/deprecating-erpnext-mobile-apps/84121). 
-
-If you willing to take the development forward, you can fork the repo and continue the development.
-
-
 # Frappe Mobile
 
 Access your ERPNext desk or any other Frappe desk anytime from your smartphone.
@@ -45,3 +38,11 @@ This Project roughly follows MVVM Architecture where each screen has seperate fi
 This Project uses [provider](https://pub.dev/packages/provider) for State Management. 
 [hive](https://pub.dev/packages/hive), [shared_preferences](https://pub.dev/packages/shared_preferences) for storage. 
 [dio](https://pub.dev/packages/dio) for making network requests.
+
+
+## Deprecation From Frappe
+
+We are deprecating mobile apps as [discussed here](https://discuss.erpnext.com/t/deprecating-erpnext-mobile-apps/84121). 
+
+If you willing to take the development forward, you can fork the repo and continue the development.
+
