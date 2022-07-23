@@ -83,9 +83,9 @@ class _LinkFieldState extends State<LinkField> with Control, ControlInput {
     return Theme(
       data: Theme.of(context).copyWith(primaryColor: Colors.black),
       child: FormBuilderTypeAhead(
-        key: widget.key!,
+        key: widget.key,
         enabled: enabled,
-        controller: widget.controller!,
+        controller: widget.controller,
         initialValue: widget.doc != null ? widget.doc![widget.doctypeField.fieldname] : null,
         direction: AxisDirection.up,
         onSuggestionSelected: (item) {

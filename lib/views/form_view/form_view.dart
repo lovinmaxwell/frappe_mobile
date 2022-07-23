@@ -243,7 +243,7 @@ class FormView extends StatelessWidget {
                                     model.meta,
                                     docs[0],
                                   ),
-                              emailSenderField: docs[0][model.meta.senderField],
+                              emailSenderField: docs[0]![model.meta.senderField] ?? "",
                             ),
                           ],
                         ),

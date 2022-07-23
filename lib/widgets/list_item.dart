@@ -20,7 +20,7 @@ class ListItem extends StatelessWidget {
   final int likeCount;
 
   final List status;
-  final List assignee;
+  final List? assignee;
 
   final Function onButtonTap;
   final void Function() onListTap;
@@ -171,7 +171,7 @@ class ListItem extends StatelessWidget {
                   ),
                   Spacer(),
                   assignee != null
-                      ? CollapsedAvatars(assignee)
+                      ? CollapsedAvatars(assignee ?? [])
                       : Container(
                           height: 38,
                         ),

@@ -59,9 +59,7 @@ class Select extends StatelessWidget with Control, ControlInput {
       icon: FrappeIcon(
         FrappeIcons.select,
       ),
-      initialValue: doc != null
-          ? doc![doctypeField.fieldname]
-          : doctypeField.defaultValue,
+      initialValue: doc != null ? doc![doctypeField.fieldname] : doctypeField.defaultValue,
       name: doctypeField.fieldname,
       hint: Text(doctypeField.label!),
       decoration: Palette.formFieldDecoration(

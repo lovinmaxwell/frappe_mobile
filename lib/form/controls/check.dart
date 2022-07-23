@@ -40,7 +40,7 @@ class Check extends StatelessWidget with Control, ControlInput {
 
     return CustomFormBuilderCheckbox(
       name: doctypeField.fieldname,
-      key: key!,
+      key: key,
       enabled: doctypeField.readOnly != null ? doctypeField.readOnly == 0 : true,
       valueTransformer: (val) {
         return val == true ? 1 : 0;
