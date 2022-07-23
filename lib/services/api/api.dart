@@ -20,7 +20,7 @@ abstract class Api {
   Future<DeskSidebarItemsResponse> getDeskSideBarItems();
 
   Future<DesktopPageResponse> getDesktopPage(
-    String module,
+    String? module,
   );
 
   Future<DoctypeResponse> getDoctype(
@@ -28,10 +28,10 @@ abstract class Api {
   );
 
   Future<List> fetchList({
-    @required List fieldnames,
-    @required String doctype,
-    @required DoctypeDoc meta,
-    @required String orderBy,
+    required List fieldnames,
+    required String doctype,
+    required DoctypeDoc meta,
+    required String orderBy,
     List filters,
     int pageLength,
     int offset,
@@ -47,13 +47,13 @@ abstract class Api {
   );
 
   Future sendEmail({
-    @required recipients,
+    required recipients,
     cc,
     bcc,
-    @required subject,
-    @required content,
-    @required doctype,
-    @required doctypeName,
+    required subject,
+    required content,
+    required doctype,
+    required doctypeName,
     sendEmail,
     printHtml,
     sendMeACopy,
@@ -79,9 +79,9 @@ abstract class Api {
   Future deleteComment(String name);
 
   Future<List<UploadedFile>> uploadFiles({
-    @required String doctype,
-    @required String name,
-    @required List<FrappeFile> files,
+    required String doctype,
+    required String name,
+    required List<FrappeFile> files,
   });
 
   Future saveDocs(String doctype, Map formValue);
@@ -104,17 +104,17 @@ abstract class Api {
   Future addReview(String doctype, String name, Map reviewData);
 
   Future setPermission({
-    @required String doctype,
-    @required String name,
-    @required Map shareInfo,
-    @required String user,
+    required String doctype,
+    required String name,
+    required Map shareInfo,
+    required String user,
   });
 
   Future shareAdd(String doctype, String name, Map shareInfo);
 
   Future shareGetUsers({
-    @required String doctype,
-    @required String name,
+    required String doctype,
+    required String name,
   });
 
   Future<Map> getContactList(String query);

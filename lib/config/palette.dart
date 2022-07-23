@@ -22,8 +22,8 @@ class Palette {
   static Color successTxtColor = FrappePalette.darkGreen[600]!;
   static Color successBgColor = FrappePalette.darkGreen[100]!;
 
-  static Color secondaryTxtColor = Color(0xFFB9C0C7);
-  static Color newIndicatorColor = Color.fromRGBO(255, 252, 231, 1);
+  static Color secondaryTxtColor = const Color(0xFFB9C0C7);
+  static Color newIndicatorColor = const Color.fromRGBO(255, 252, 231, 1);
 
   static EdgeInsets fieldPadding = const EdgeInsets.only(bottom: 24.0);
   static EdgeInsets labelPadding = const EdgeInsets.only(bottom: 4.0);
@@ -56,20 +56,20 @@ class Palette {
       isDense: true,
       contentPadding: field == "check"
           ? EdgeInsets.zero
-          : EdgeInsets.symmetric(
+          : const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 8,
             ),
-      border: OutlineInputBorder(
+      border: const OutlineInputBorder(
         borderSide: BorderSide.none,
-        borderRadius: const BorderRadius.all(
-          const Radius.circular(6.0),
+        borderRadius: BorderRadius.all(
+          Radius.circular(6.0),
         ),
       ),
-      errorBorder: OutlineInputBorder(
+      errorBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.red),
-        borderRadius: const BorderRadius.all(
-          const Radius.circular(6.0),
+        borderRadius: BorderRadius.all(
+          Radius.circular(6.0),
         ),
       ),
       // hintText: label,

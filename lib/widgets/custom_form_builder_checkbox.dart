@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -15,22 +14,22 @@ class CustomFormBuilderCheckbox extends FormBuilderField<bool> {
   /// Additional content displayed below the title.
   ///
   /// Typically a [Text] widget.
-  final Widget subtitle;
+  final Widget? subtitle;
 
   /// A widget to display on the opposite side of the tile from the checkbox.
   ///
   /// Typically an [Icon] widget.
-  final Widget secondary;
+  final Widget? secondary;
 
   /// The color to use when this checkbox is checked.
   ///
   /// Defaults to accent color of the current [Theme].
-  final Color activeColor;
+  final Color? activeColor;
 
   /// The color to use for the check icon when this checkbox is checked.
   ///
   /// Defaults to Color(0xFFFFFFFF).
-  final Color checkColor;
+  final Color? checkColor;
 
   /// Where to place the control relative to its label.
   final ListTileControlAffinity controlAffinity;
@@ -70,10 +69,10 @@ class CustomFormBuilderCheckbox extends FormBuilderField<bool> {
   /// Creates a single Checkbox field
   CustomFormBuilderCheckbox({
     //From Super
-    Key key,
-    @required String name,
-    FormFieldValidator<bool> validator,
-    bool initialValue,
+    Key? key,
+    required String name,
+    FormFieldValidator<bool>? validator,
+    bool? initialValue,
     InputDecoration decoration = const InputDecoration(
       border: InputBorder.none,
       focusedBorder: InputBorder.none,
@@ -81,15 +80,15 @@ class CustomFormBuilderCheckbox extends FormBuilderField<bool> {
       errorBorder: InputBorder.none,
       disabledBorder: InputBorder.none,
     ),
-    ValueChanged onChanged,
-    ValueTransformer<bool> valueTransformer,
+    ValueChanged? onChanged,
+    ValueTransformer<bool?>? valueTransformer,
     bool enabled = true,
-    FormFieldSetter<bool> onSaved,
+    FormFieldSetter<bool>? onSaved,
     AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
-    VoidCallback onReset,
-    FocusNode focusNode,
+    VoidCallback? onReset,
+    FocusNode? focusNode,
     this.activeColor,
-    @required this.label,
+    required this.label,
     this.checkColor,
     this.subtitle,
     this.secondary,
@@ -134,9 +133,7 @@ class CustomFormBuilderCheckbox extends FormBuilderField<bool> {
                         child: Transform.scale(
                           scale: 0.8,
                           child: CustomCheckbox(
-                            value: (state.value == null && !tristate)
-                                ? false
-                                : state.value,
+                            value: (state.value == null && !tristate) ? false : state.value,
                             onChanged: state.enabled
                                 ? (val) {
                                     state.requestFocus();
@@ -163,9 +160,7 @@ class CustomFormBuilderCheckbox extends FormBuilderField<bool> {
         );
 
   @override
-  _CustomFormBuilderCheckboxState createState() =>
-      _CustomFormBuilderCheckboxState();
+  _CustomFormBuilderCheckboxState createState() => _CustomFormBuilderCheckboxState();
 }
 
-class _CustomFormBuilderCheckboxState
-    extends FormBuilderFieldState<CustomFormBuilderCheckbox, bool> {}
+class _CustomFormBuilderCheckboxState extends FormBuilderFieldState<CustomFormBuilderCheckbox, bool> {}

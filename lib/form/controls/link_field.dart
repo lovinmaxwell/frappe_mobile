@@ -83,12 +83,10 @@ class _LinkFieldState extends State<LinkField> with Control, ControlInput {
     return Theme(
       data: Theme.of(context).copyWith(primaryColor: Colors.black),
       child: FormBuilderTypeAhead(
-        key: widget.key,
+        key: widget.key!,
         enabled: enabled,
-        controller: widget.controller,
-        initialValue: widget.doc != null
-            ? widget.doc![widget.doctypeField.fieldname]
-            : null,
+        controller: widget.controller!,
+        initialValue: widget.doc != null ? widget.doc![widget.doctypeField.fieldname] : null,
         direction: AxisDirection.up,
         onSuggestionSelected: (item) {
           var val = item is String
@@ -111,15 +109,12 @@ class _LinkFieldState extends State<LinkField> with Control, ControlInput {
         validator: FormBuilderValidators.compose(validators),
         decoration: Palette.formFieldDecoration(
           label: widget.doctypeField.label,
-          suffixIcon: widget.doc?[widget.doctypeField.fieldname] != null &&
-                  widget.doc?[widget.doctypeField.fieldname] != ""
+          suffixIcon: widget.doc?[widget.doctypeField.fieldname] != null && widget.doc?[widget.doctypeField.fieldname] != ""
               ? IconButton(
                   onPressed: () {
                     pushNewScreen(
                       context,
-                      screen: FormView(
-                          doctype: widget.doctypeField.options,
-                          name: widget.doc![widget.doctypeField.fieldname]),
+                      screen: FormView(doctype: widget.doctypeField.options, name: widget.doc![widget.doctypeField.fieldname]),
                     );
                   },
                   icon: FrappeIcon(
@@ -162,21 +157,17 @@ class _LinkFieldState extends State<LinkField> with Control, ControlInput {
               var lowercaseQuery = query.toLowerCase();
               var isOnline = await verifyOnline();
               if (!isOnline) {
-                var linkFull = await OfflineStorage.getItem(
-                    '${widget.doctypeField.options}LinkFull');
+                var linkFull = await OfflineStorage.getItem('${widget.doctypeField.options}LinkFull');
                 linkFull = linkFull["data"];
 
                 if (linkFull != null) {
                   return linkFull["results"].where(
                     (link) {
-                      return (link["value"] as String)
-                          .toLowerCase()
-                          .contains(lowercaseQuery);
+                      return (link["value"] as String).toLowerCase().contains(lowercaseQuery);
                     },
                   ).toList();
                 } else {
-                  var queryLink = await OfflineStorage.getItem(
-                      '$lowercaseQuery${widget.doctypeField.options}Link');
+                  var queryLink = await OfflineStorage.getItem('$lowercaseQuery${widget.doctypeField.options}Link');
                   queryLink = queryLink["data"];
 
                   if (queryLink != null) {

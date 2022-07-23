@@ -20,7 +20,7 @@ class MultiSelect extends StatefulWidget {
 
   final Map? doc;
   final FutureOr<List<dynamic>> Function(String)? findSuggestions;
-  final dynamic Function(List<dynamic>)? valueTransformer;
+  final dynamic Function(List<dynamic>?)? valueTransformer;
   final Function(List<dynamic>)? onChanged;
   final Key? key;
   final Widget? prefixIcon;
@@ -58,14 +58,9 @@ class _MultiSelectState extends State<MultiSelect> with Control, ControlInput {
     if (widget.doc != null) {
       if (widget.doc![widget.doctypeField.fieldname] != null) {
         if (widget.doctypeField.fieldtype == "Table MultiSelect") {
-          initialValue = widget.doc![widget.doctypeField.fieldname]
-              .map((e) => e[widget.doctypeField.fieldname])
-              .toList();
+          initialValue = widget.doc![widget.doctypeField.fieldname].map((e) => e[widget.doctypeField.fieldname]).toList();
         } else {
-          initialValue = widget.doc![widget.doctypeField.fieldname]
-              .split(',')
-              .where((e) => e != " ")
-              .toList();
+          initialValue = widget.doc![widget.doctypeField.fieldname].split(',').where((e) => e != " ").toList();
         }
       } else {
         initialValue = [];
@@ -75,7 +70,7 @@ class _MultiSelectState extends State<MultiSelect> with Control, ControlInput {
     }
 
     return FormBuilderChipsInput(
-      key: widget.key,
+      key: widget.key!,
       onChanged: (val) {
         if (widget.onControlChanged != null) {
           FieldValue(
@@ -87,7 +82,7 @@ class _MultiSelectState extends State<MultiSelect> with Control, ControlInput {
       validator: FormBuilderValidators.compose(validators),
       valueTransformer: widget.valueTransformer ??
           (value) {
-            return value
+            return value!
                 .map((v) {
                   if (v is Map) {
                     return v["value"];
@@ -115,8 +110,7 @@ class _MultiSelectState extends State<MultiSelect> with Control, ControlInput {
           (String query) async {
             if (query.length != 0) {
               var lowercaseQuery = query.toLowerCase();
-              var response =
-                  await locator<Api>().getContactList(lowercaseQuery);
+              var response = await locator<Api>().getContactList(lowercaseQuery);
               var val = response["message"];
               if (val.length == 0) {
                 val = [

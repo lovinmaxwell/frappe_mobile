@@ -1,8 +1,7 @@
-// @dart=2.9
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:device_info/device_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -36,8 +35,7 @@ getDownloadPath() async {
   if (Platform.isAndroid) {
     return '/storage/emulated/0/Download/';
   } else if (Platform.isIOS) {
-    final Directory downloadsDirectory =
-        await getApplicationDocumentsDirectory();
+    final Directory downloadsDirectory = await getApplicationDocumentsDirectory();
     return downloadsDirectory.path;
   }
 }
@@ -49,14 +47,12 @@ downloadFile(String fileUrl, String downloadPath) async {
 
   await FlutterDownloader.enqueue(
     headers: {
-      HttpHeaders.cookieHeader: DioHelper.cookies,
+      HttpHeaders.cookieHeader: DioHelper.cookies!,
     },
     url: absoluteUrl,
     savedDir: downloadPath,
-    showNotification:
-        true, // show download progress in status bar (for Android)
-    openFileFromNotification:
-        true, // click on notification to open downloaded file (for Android)
+    showNotification: true, // show download progress in status bar (for Android)
+    openFileFromNotification: true, // click on notification to open downloaded file (for Android)
   );
 }
 
@@ -73,15 +69,12 @@ Future<bool> _checkPermission() async {
 
 String toTitleCase(String str) {
   return str
-      .replaceAllMapped(
-          RegExp(
-              r'[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+'),
-          (Match m) =>
-              "${m[0][0].toUpperCase()}${m[0].substring(1).toLowerCase()}")
+      .replaceAllMapped(RegExp(r'[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+'),
+          (Match m) => "${m[0]![0].toUpperCase()}${m[0]!.substring(1).toLowerCase()}")
       .replaceAll(RegExp(r'(_|-)+'), ' ');
 }
 
-DateTime parseDate(val) {
+DateTime? parseDate(val) {
   if (val == null || val == "") {
     return null;
   } else if (val == "Today") {
@@ -102,10 +95,10 @@ List generateFieldnames(String doctype, DoctypeDoc meta) {
   ];
 
   if (hasTitle(meta)) {
-    fields.add(meta.titleField);
+    fields.add(meta.titleField!);
   }
 
-  if (meta.fieldsMap.containsKey('status')) {
+  if (meta.fieldsMap!.containsKey('status')) {
     fields.add('status');
   } else {
     fields.add('docstatus');
@@ -166,7 +159,7 @@ clearLoginInfo() async {
   var cookie = await DioHelper.getCookiePath();
   if (Config().uri != null) {
     cookie.delete(
-      Config().uri,
+      Config().uri!,
     );
   }
 
@@ -183,9 +176,9 @@ handle403(BuildContext context) async {
 }
 
 handleError({
-  @required ErrorResponse error,
-  @required BuildContext context,
-  Function onRetry,
+  required ErrorResponse error,
+  required BuildContext context,
+  required Function onRetry,
   bool hideAppBar = false,
 }) {
   if (error.statusCode == HttpStatus.forbidden) {
@@ -213,21 +206,19 @@ handleError({
 }
 
 Future<void> showNotification({
-  @required String title,
-  @required String subtitle,
+  required String title,
+  required String subtitle,
   int index = 0,
 }) async {
-  const AndroidNotificationDetails androidPlatformChannelSpecifics =
-      AndroidNotificationDetails(
+  const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
     'FrappeChannelId',
     'FrappeChannelName',
-    'FrappeChannelDescription',
+    channelDescription: 'FrappeChannelDescription',
     // importance: Importance.max,
     // priority: Priority.high,
     ticker: 'ticker',
   );
-  const NotificationDetails platformChannelSpecifics =
-      NotificationDetails(android: androidPlatformChannelSpecifics);
+  const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
   await flutterLocalNotificationsPlugin.show(
     index,
     title,
@@ -239,17 +230,14 @@ Future<void> showNotification({
 Future<int> getActiveNotifications() async {
   final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-  if (!(androidInfo.version.sdkInt >= 23)) {
+  if (!(androidInfo.version.sdkInt! >= 23)) {
     return 0;
   }
 
-  final List<ActiveNotification> activeNotifications =
-      await flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.getActiveNotifications();
+  final List<ActiveNotification>? activeNotifications =
+      await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.getActiveNotifications();
 
-  return activeNotifications.length;
+  return activeNotifications!.length;
 }
 
 Map extractChangedValues(Map original, Map updated) {
@@ -282,19 +270,14 @@ getLinkFields(String doctype) async {
     doctype,
   );
   var doc = docMeta.docs[0];
-  var linkFieldDoctypes = doc.fields
-      .where((d) => d.fieldtype == 'Link')
-      .map((d) => d.options)
-      .toList();
+  var linkFieldDoctypes = doc.fields.where((d) => d.fieldtype == 'Link').map((d) => d.options).toList();
 
   return linkFieldDoctypes;
 }
 
 resetValues() async {
-  await locator<StorageService>()
-      .putSharedPrefBoolValue("backgroundTask", false);
-  await locator<StorageService>()
-      .putSharedPrefBoolValue("storeApiResponse", true);
+  await locator<StorageService>().putSharedPrefBoolValue("backgroundTask", false);
+  await locator<StorageService>().putSharedPrefBoolValue("storeApiResponse", true);
 }
 
 initDb() async {
@@ -306,11 +289,9 @@ initDb() async {
 }
 
 initLocalNotifications() async {
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('app_icon');
+  const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
 
-  final IOSInitializationSettings initializationSettingsIOS =
-      IOSInitializationSettings();
+  final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings();
   final InitializationSettings initializationSettings = InitializationSettings(
     iOS: initializationSettingsIOS,
     android: initializationSettingsAndroid,
@@ -325,7 +306,7 @@ initAwesomeItems() async {
   var moduleDoctypesMapping = {};
 
   for (var item in deskSidebarItems.message) {
-    String module;
+    String? module;
     if (item.content != null) {
       module = jsonEncode({
         "name": item.name,
@@ -339,7 +320,7 @@ initAwesomeItems() async {
     var desktopPage = await locator<Api>().getDesktopPage(module);
 
     var doctypes = [];
-    desktopPage.message.cards.items.forEach(
+    desktopPage.message.cards.items!.forEach(
       (item) {
         item.links.forEach(
           (link) {
@@ -365,7 +346,7 @@ noInternetAlert(
 }
 
 executeJS({
-  @required String jsString,
+  required String jsString,
 }) {
   JavascriptRuntime flutterJs = getJavascriptRuntime();
   try {

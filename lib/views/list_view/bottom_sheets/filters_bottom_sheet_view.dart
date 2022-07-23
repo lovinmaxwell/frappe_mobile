@@ -200,9 +200,7 @@ class AddFilter extends StatelessWidget {
                           ),
                         );
 
-                        if (_filter != null && _filter.field != null) {
-                          onUpdate(_filter);
-                        }
+                        onUpdate(_filter);
                       },
                       child: Card(
                         child: Container(
@@ -220,8 +218,7 @@ class AddFilter extends StatelessWidget {
                               children: [
                                 ConstrainedBox(
                                   constraints: BoxConstraints(
-                                    maxWidth:
-                                        MediaQuery.of(context).size.width - 110,
+                                    maxWidth: MediaQuery.of(context).size.width - 110,
                                   ),
                                   child: Text(
                                     filter.field.label!,
@@ -253,12 +250,11 @@ class AddFilter extends StatelessWidget {
                           builder: (context) => EditFilterBottomSheetView(
                             page: 2,
                             filter: filter,
+                            fields: const [],
                           ),
                         );
 
-                        if (_filter != null && _filter.filterOperator != null) {
-                          onUpdate(_filter);
-                        }
+                        onUpdate(_filter);
                       },
                       child: Card(
                         child: Container(
@@ -302,10 +298,11 @@ class AddFilter extends StatelessWidget {
                           builder: (context) => EditFilterBottomSheetView(
                             page: 3,
                             filter: filter,
+                            fields: const [],
                           ),
                         );
 
-                        if (_filter != null && _filter.value != null) {
+                        if (_filter.value != null) {
                           onUpdate(_filter);
                         }
                       },
@@ -322,8 +319,7 @@ class AddFilter extends StatelessWidget {
                             ),
                             child: ConstrainedBox(
                               constraints: BoxConstraints(
-                                maxWidth:
-                                    MediaQuery.of(context).size.width - 110,
+                                maxWidth: MediaQuery.of(context).size.width - 110,
                               ),
                               child: Text(
                                 filter.value ?? "value",

@@ -1,47 +1,16 @@
-## Deprecation Warning
+# frappe_mobile
 
-We are deprecating mobile apps as [discussed here](https://discuss.erpnext.com/t/deprecating-erpnext-mobile-apps/84121). 
+A new Flutter project.
 
-If you willing to take the development forward, you can fork the repo and continue the development.
+## Getting Started
 
+This project is a starting point for a Flutter application.
 
-# Frappe Mobile
+A few resources to get you started if this is your first Flutter project:
 
-Access your ERPNext desk or any other Frappe desk anytime from your smartphone.
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-<kbd><img width="216" height="432" src="screenshots/desk.png" alt="Desk" /></kbd>
-<kbd><img width="216" height="432" src="screenshots/awesomebar.png" alt="Awesome Bar" /></kbd>
-<kbd><img width="216" height="432" src="screenshots/form_view.png" alt="Form View" /></kbd>
-
-## Features:
-1) Create/Update Docs
-2) Add/Remove Assignees, Tags
-3) Add/Remove/Download Attachments 
-4) Add Comments, Send Email
-5) Appreciate/Criticize Users involved in specified Doc.
-6) Timeline
-7) Awesombar
-
-
-## Development
-0) To run this Project first you need to [Setup Flutter](https://flutter.dev/docs/get-started/install)
-
-1) Install packages<br/>
-```sh
-flutter pub get
-```
-2) Run the Project<br/>
-```sh
-flutter run
-```
-
-### Architecture
-
-This Project roughly follows MVVM Architecture where each screen has seperate file and each stateful screen is contained in a folder with 2 files 
-
-1) View file (layout logic) 
-2) View Model File (data processing and state management). 
-
-This Project uses [provider](https://pub.dev/packages/provider) for State Management. 
-[hive](https://pub.dev/packages/hive), [shared_preferences](https://pub.dev/packages/shared_preferences) for storage. 
-[dio](https://pub.dev/packages/dio) for making network requests.
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

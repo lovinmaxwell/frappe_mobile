@@ -156,8 +156,7 @@ class _EmailBoxState extends State<EmailBox> {
                       itemCount: attachments.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        var fileName =
-                            attachments[index].fileUrl.split("/").last;
+                        var fileName = attachments[index].fileUrl.split("/").last;
                         var extension = fileName.split('.').last;
 
                         return InkWell(
@@ -171,8 +170,7 @@ class _EmailBoxState extends State<EmailBox> {
                             if (fileExists) {
                               OpenFile.open(filePath);
                             } else {
-                              downloadFile(
-                                  attachments[index].fileUrl, downloadPath);
+                              downloadFile(attachments[index].fileUrl, downloadPath);
                             }
                           },
                           child: Padding(
@@ -183,8 +181,7 @@ class _EmailBoxState extends State<EmailBox> {
                               width: 162,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
-                                border:
-                                    Border.all(color: FrappePalette.grey[200]!),
+                                border: Border.all(color: FrappePalette.grey[200]!),
                               ),
                               child: Row(
                                 children: [
@@ -202,10 +199,8 @@ class _EmailBoxState extends State<EmailBox> {
                                   ),
                                   Flexible(
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           fileName,
@@ -243,10 +238,7 @@ class _EmailBoxState extends State<EmailBox> {
                       return LinearGradient(
                         begin: Alignment(0.0, 0.6),
                         end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.white,
-                          _isExpanded ? Colors.white : Colors.white10
-                        ],
+                        colors: [Colors.white, _isExpanded ? Colors.white : Colors.white10],
                       ).createShader(
                         Rect.fromLTRB(
                           0,
@@ -289,8 +281,7 @@ class _EmailBoxState extends State<EmailBox> {
                                 child: Image.network(
                                   src,
                                   headers: {
-                                    HttpHeaders.cookieHeader:
-                                        DioHelper.cookies!,
+                                    HttpHeaders.cookieHeader: DioHelper.cookies!,
                                   },
                                 ),
                               );
@@ -308,18 +299,14 @@ class _EmailBoxState extends State<EmailBox> {
                             loadingWidget: () => Text("Loading..."),
                           ),
                           // for relative paths, prefix with a base url
-                          (attr, _) =>
-                                  attr["src"] != null &&
-                                  !attr["src"]!.startsWith("http"):
-                              networkImageRender(
+                          (attr, _) => attr["src"] != null && !attr["src"]!.startsWith("http"): networkImageRender(
                             headers: {
                               HttpHeaders.cookieHeader: DioHelper.cookies!,
                             },
                             mapUrl: (url) => Config().baseUrl! + url!,
                           ),
                           // Custom placeholder image for broken links
-                          networkSourceMatcher(): networkImageRender(
-                              altWidget: (_) => FrappeLogo()),
+                          networkSourceMatcher(): networkImageRender(altWidget: (_) => FrappeLogo()),
                         },
                         onLinkTap: (url, _, __, ___) async {
                           print("Opening $url...");

@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'dart:io';
 
 import 'package:frappe_app/model/common.dart';
@@ -23,7 +22,7 @@ class NewDoc extends StatefulWidget {
   final DoctypeResponse meta;
 
   const NewDoc({
-    @required this.meta,
+    required this.meta,
   });
 
   @override
@@ -71,8 +70,7 @@ class _NewDocState extends State<NewDoc> {
                           } catch (e) {
                             var _e = e as ErrorResponse;
 
-                            if (_e.statusCode ==
-                                HttpStatus.serviceUnavailable) {
+                            if (_e.statusCode == HttpStatus.serviceUnavailable) {
                               noInternetAlert(
                                 context,
                               );

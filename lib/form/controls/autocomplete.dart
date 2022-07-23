@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -15,7 +17,7 @@ import '../../model/doctype_response.dart';
 import 'base_control.dart';
 import 'base_input.dart';
 
-typedef String SelectionToTextTransformer<T>(T selection);
+typedef SelectionToTextTransformer<T> = String Function(T selection);
 
 class AutoComplete extends StatefulWidget {
   final DoctypeField doctypeField;
@@ -49,8 +51,7 @@ class AutoComplete extends StatefulWidget {
   _AutoCompleteState createState() => _AutoCompleteState();
 }
 
-class _AutoCompleteState extends State<AutoComplete>
-    with Control, ControlInput {
+class _AutoCompleteState extends State<AutoComplete> with Control, ControlInput {
   TextEditingController? _typeAheadController;
 
   @override
@@ -74,10 +75,10 @@ class _AutoCompleteState extends State<AutoComplete>
     return Theme(
       data: Theme.of(context).copyWith(primaryColor: Colors.black),
       child: FormBuilderTypeAhead(
-        key: widget.key,
-        controller: _typeAheadController,
-        onSuggestionSelected: widget.onSuggestionSelected,
-        onChanged: (val) {
+        key: widget.key!,
+        controller: _typeAheadController!,
+        onSuggestionSelected: widget.onSuggestionSelected!,
+        onChanged: (dynamic val) {
           if (widget.onControlChanged != null) {
             widget.onControlChanged!(
               FieldValue(
@@ -115,9 +116,7 @@ class _AutoCompleteState extends State<AutoComplete>
                 ),
               );
             },
-        initialValue: widget.doc != null
-            ? widget.doc![widget.doctypeField.fieldname]
-            : null,
+        initialValue: widget.doc != null ? widget.doc![widget.doctypeField.fieldname] : null,
         suggestionsCallback: widget.suggestionsCallback ??
             (query) {
               var lowercaseQuery = query.toLowerCase();

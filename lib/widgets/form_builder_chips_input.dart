@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_chips_input/flutter_chips_input.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -12,39 +11,39 @@ class FormBuilderChipsInput<T> extends FormBuilderField<List<T>> {
   // final ValueChanged<List<T>> onChanged;
   final ChipsBuilder<T> chipBuilder;
   final ChipsBuilder<T> suggestionBuilder;
-  final int maxChips;
-  final TextStyle textStyle;
-  final String actionLabel;
+  final int? maxChips;
+  final TextStyle? textStyle;
+  final String? actionLabel;
   final bool autocorrect;
   final TextInputAction inputAction;
   final TextInputType inputType;
   final Brightness keyboardAppearance;
   final bool obscureText;
-  final double suggestionsBoxMaxHeight;
+  final double? suggestionsBoxMaxHeight;
   final TextCapitalization textCapitalization;
   final bool allowChipEditing;
   final bool autofocus;
-  final TextOverflow textOverflow;
+  final TextOverflow? textOverflow;
 
   /// Creates a field that takes a list of `Chip`s as input and suggests more options
   /// while typing
   FormBuilderChipsInput({
-    Key key,
+    Key? key,
     //From Super
-    @required String name,
-    FormFieldValidator<List<T>> validator,
+    required String name,
+    FormFieldValidator<List<T>>? validator,
     List<T> initialValue = const [],
     InputDecoration decoration = const InputDecoration(),
-    ValueChanged<List<T>> onChanged,
-    ValueTransformer<List<T>> valueTransformer,
+    ValueChanged<List<T>?>? onChanged,
+    ValueTransformer<List<T>?>? valueTransformer,
     bool enabled = true,
-    FormFieldSetter<List<T>> onSaved,
+    FormFieldSetter<List<T>?>? onSaved,
     AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
-    VoidCallback onReset,
-    FocusNode focusNode,
-    @required this.chipBuilder,
-    @required this.suggestionBuilder,
-    @required this.findSuggestions,
+    VoidCallback? onReset,
+    FocusNode? focusNode,
+    required this.chipBuilder,
+    required this.suggestionBuilder,
+    required this.findSuggestions,
     this.maxChips,
     this.textStyle,
     this.actionLabel,
@@ -75,7 +74,7 @@ class FormBuilderChipsInput<T> extends FormBuilderField<List<T>> {
             final state = field as _FormBuilderChipsInputState<T>;
 
             return ChipsInput<T>(
-              initialValue: field.value,
+              initialValue: field.value!,
               enabled: state.enabled,
               decoration: state.decoration,
               findSuggestions: findSuggestions,
@@ -97,15 +96,13 @@ class FormBuilderChipsInput<T> extends FormBuilderField<List<T>> {
               allowChipEditing: allowChipEditing,
               autofocus: autofocus,
               focusNode: state.effectiveFocusNode,
-              textOverflow: textOverflow,
+              textOverflow: textOverflow!,
             );
           },
         );
 
   @override
-  _FormBuilderChipsInputState<T> createState() =>
-      _FormBuilderChipsInputState<T>();
+  _FormBuilderChipsInputState<T> createState() => _FormBuilderChipsInputState<T>();
 }
 
-class _FormBuilderChipsInputState<T>
-    extends FormBuilderFieldState<FormBuilderChipsInput<T>, List<T>> {}
+class _FormBuilderChipsInputState<T> extends FormBuilderFieldState<FormBuilderChipsInput<T>, List<T>> {}

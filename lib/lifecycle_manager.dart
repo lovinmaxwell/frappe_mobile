@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frappe_app/services/storage_service.dart';
-import 'package:frappe_app/utils/helpers.dart';
 
 import 'app/locator.dart';
 
@@ -11,17 +10,16 @@ class LifeCycleManager extends StatefulWidget {
   _LifeCycleManagerState createState() => _LifeCycleManagerState();
 }
 
-class _LifeCycleManagerState extends State<LifeCycleManager>
-    with WidgetsBindingObserver {
+class _LifeCycleManagerState extends State<LifeCycleManager> with WidgetsBindingObserver {
   @override
   void initState() {
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

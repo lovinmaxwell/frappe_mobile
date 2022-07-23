@@ -52,7 +52,7 @@ class DeskView extends StatelessWidget {
             onRetry: () {
               model.getData();
             },
-            error: model.error,
+            error: model.error!,
             context: context,
           );
         } else {
@@ -204,7 +204,7 @@ class DeskView extends StatelessWidget {
   }) {
     List<Widget> widgets = [];
 
-    if (desktopPage.message.shortcuts.items.isNotEmpty) {
+    if (desktopPage.message.shortcuts.items!.isNotEmpty) {
       widgets.add(
         SizedBox(
           height: 20,
@@ -214,7 +214,7 @@ class DeskView extends StatelessWidget {
         _heading("Your Shortcuts"),
       );
 
-      widgets.addAll(desktopPage.message.shortcuts.items.where((item) {
+      widgets.addAll(desktopPage.message.shortcuts.items!.where((item) {
         return item.type == "DocType";
       }).map<Widget>(
         (item) {
@@ -233,12 +233,12 @@ class DeskView extends StatelessWidget {
       );
     }
 
-    if (desktopPage.message.cards.items.isNotEmpty) {
+    if (desktopPage.message.cards.items!.isNotEmpty) {
       widgets.add(
         _heading("Masters"),
       );
 
-      desktopPage.message.cards.items.forEach(
+      desktopPage.message.cards.items!.forEach(
         (item) {
           widgets.add(
             Padding(
@@ -345,15 +345,12 @@ class ShowModules extends StatelessWidget {
                       (element) {
                         listItems.add(
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 12.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
                             child: ListTile(
                               visualDensity: VisualDensity(
                                 vertical: -4,
                               ),
-                              tileColor: model.currentModule == element.name
-                                  ? Palette.bgColor
-                                  : Colors.white,
+                              tileColor: model.currentModule == element.name ? Palette.bgColor : Colors.white,
                               title: Text(
                                 element.label,
                               ),

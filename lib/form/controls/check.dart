@@ -40,14 +40,13 @@ class Check extends StatelessWidget with Control, ControlInput {
 
     return CustomFormBuilderCheckbox(
       name: doctypeField.fieldname,
-      key: key,
-      enabled:
-          doctypeField.readOnly != null ? doctypeField.readOnly == 0 : true,
+      key: key!,
+      enabled: doctypeField.readOnly != null ? doctypeField.readOnly == 0 : true,
       valueTransformer: (val) {
         return val == true ? 1 : 0;
       },
       activeColor: FrappePalette.blue,
-      initialValue: doc != null ? doc![doctypeField.fieldname] == 1 : null,
+      initialValue: doc != null ? doc![doctypeField.fieldname] == 1 : false,
       onChanged: (val) {
         if (onControlChanged != null) {
           onControlChanged!(

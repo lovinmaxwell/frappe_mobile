@@ -36,11 +36,7 @@ class DeskViewModel extends BaseViewModel {
   ) async {
     setState(ViewState.busy);
     if (newModule.content != null) {
-      currentModule = jsonEncode({
-        "name": newModule.name,
-        "title": newModule.name,
-        "content": newModule.content!
-      });
+      currentModule = jsonEncode({"name": newModule.name, "title": newModule.name, "content": newModule.content!});
       currentModuleTitle = newModule.name;
     } else {
       currentModule = newModule.name;
@@ -58,12 +54,10 @@ class DeskViewModel extends BaseViewModel {
     var isOnline = await verifyOnline();
 
     if (!isOnline) {
-      var deskSidebarItemsCache =
-          OfflineStorage.getItem('deskSidebarItems')["data"];
+      var deskSidebarItemsCache = OfflineStorage.getItem('deskSidebarItems')["data"];
 
       if (deskSidebarItemsCache != null) {
-        deskSidebarItems =
-            DeskSidebarItemsResponse.fromJson(deskSidebarItemsCache);
+        deskSidebarItems = DeskSidebarItemsResponse.fromJson(deskSidebarItemsCache);
       } else {
         throw ErrorResponse(statusCode: HttpStatus.serviceUnavailable);
       }
@@ -71,7 +65,7 @@ class DeskViewModel extends BaseViewModel {
       try {
         deskSidebarItems = await locator<Api>().getDeskSideBarItems();
       } catch (e) {
-        throw e as ErrorResponse;
+        rethrow;
       }
     }
 
@@ -132,37 +126,28 @@ class DeskViewModel extends BaseViewModel {
 
       if (passedModule != null) {
         if (passedModule!.content != null) {
-          currentModule = jsonEncode({
-            "name": passedModule!.name,
-            "title": passedModule!.name,
-            "content": passedModule!.content!
-          });
+          currentModule = jsonEncode({"name": passedModule!.name, "title": passedModule!.name, "content": passedModule!.content!});
           currentModuleTitle = passedModule!.name;
         } else {
           currentModule = passedModule!.name;
           currentModuleTitle = passedModule!.name;
         }
-      } else if (modulesByCategory[modulesByCategory.keys.first]![0].content !=
-          null) {
+      } else if (modulesByCategory[modulesByCategory.keys.first]![0].content != null) {
         currentModule = jsonEncode({
           "name": modulesByCategory[modulesByCategory.keys.first]![0].name,
           "title": modulesByCategory[modulesByCategory.keys.first]![0].name,
-          "content":
-              modulesByCategory[modulesByCategory.keys.first]![0].content!
+          "content": modulesByCategory[modulesByCategory.keys.first]![0].content!
         });
-        currentModuleTitle =
-            modulesByCategory[modulesByCategory.keys.first]![0].name;
+        currentModuleTitle = modulesByCategory[modulesByCategory.keys.first]![0].name;
       } else {
-        currentModule =
-            modulesByCategory[modulesByCategory.keys.first]![0].name;
-        currentModuleTitle =
-            modulesByCategory[modulesByCategory.keys.first]![0].name;
+        currentModule = modulesByCategory[modulesByCategory.keys.first]![0].name;
+        currentModuleTitle = modulesByCategory[modulesByCategory.keys.first]![0].name;
       }
 
       await getDesktopPage();
       error = null;
     } catch (e) {
-      error = e as ErrorResponse;
+      throw e as ErrorResponse;
     }
     setState(ViewState.idle);
   }

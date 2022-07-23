@@ -73,12 +73,12 @@ class DesktopPageCharts {
 }
 
 class DesktopPageShortcuts {
-  late String label;
-  late List<ShortcutItem> items;
+  late String? label;
+  late List<ShortcutItem>? items;
 
   DesktopPageShortcuts({
-    required this.label,
-    required this.items,
+    this.label,
+    this.items,
   });
 
   DesktopPageShortcuts.fromJson(Map<dynamic, dynamic> json) {
@@ -86,7 +86,7 @@ class DesktopPageShortcuts {
     if (json['items'] != null) {
       items = [];
       json['items'].forEach((v) {
-        items.add(new ShortcutItem.fromJson(v));
+        items!.add(new ShortcutItem.fromJson(v));
       });
     }
   }
@@ -94,18 +94,18 @@ class DesktopPageShortcuts {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['label'] = this.label;
-    data['items'] = this.items.map((v) => v.toJson()).toList();
+    data['items'] = this.items!.map((v) => v.toJson()).toList();
     return data;
   }
 }
 
 class DesktopPageCards {
-  late String label;
-  late List<CardItem> items;
+  late String? label;
+  late List<CardItem>? items;
 
   DesktopPageCards({
-    required this.label,
-    required this.items,
+    this.label,
+    this.items,
   });
 
   DesktopPageCards.fromJson(Map<dynamic, dynamic> json) {
@@ -113,7 +113,7 @@ class DesktopPageCards {
     if (json['items'] != null) {
       items = [];
       json['items'].forEach((v) {
-        items.add(CardItem.fromJson(v));
+        items!.add(CardItem.fromJson(v));
       });
     }
   }
@@ -121,7 +121,7 @@ class DesktopPageCards {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['label'] = this.label;
-    data['items'] = this.items.map((v) => v.toJson()).toList();
+    data['items'] = this.items!.map((v) => v.toJson()).toList();
     return data;
   }
 }

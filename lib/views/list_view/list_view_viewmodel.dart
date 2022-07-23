@@ -80,8 +80,7 @@ class ListViewViewModel extends BaseViewModel {
 
     _fields.forEach(
       (field) {
-        if ((field.bold == 1 || field.reqd == 1) &&
-            field.fieldname != metaSortField) {
+        if ((field.bold == 1 || field.reqd == 1) && field.fieldname != metaSortField) {
           _sortableFields.add(field);
         }
       },
@@ -99,8 +98,7 @@ class ListViewViewModel extends BaseViewModel {
     var userSettingsList = userSettings["List"];
     var userSettingsReport = userSettings["Report"];
 
-    if (userSettingsList != null &&
-        (userSettingsList["filters"] as List).isNotEmpty) {
+    if (userSettingsList != null && (userSettingsList["filters"] as List).isNotEmpty) {
       (userSettingsList["filters"] as List).forEach(
         (listFilter) {
           filters.add(
@@ -139,8 +137,7 @@ class ListViewViewModel extends BaseViewModel {
       if (userSettingsList["sort_order"] != null) {
         sortOrder = userSettingsList["sort_order"];
       }
-    } else if (userSettingsReport != null &&
-        (userSettingsReport["filters"] as List).isNotEmpty) {
+    } else if (userSettingsReport != null && (userSettingsReport["filters"] as List).isNotEmpty) {
       (userSettingsReport["filters"] as List).forEach(
         (reportFilter) {
           filters.add(
@@ -213,8 +210,7 @@ class ListViewViewModel extends BaseViewModel {
               filters: transformedFilters,
               meta: meta.docs[0],
               doctype: meta.docs[0].name,
-              orderBy:
-                  '`tab${meta.docs[0].name}`.`${sortField.fieldname}` $sortOrder',
+              orderBy: '`tab${meta.docs[0].name}`.`${sortField.fieldname}` $sortOrder',
               fieldnames: generateFieldnames(
                 meta.docs[0].name,
                 meta.docs[0],
@@ -265,8 +261,8 @@ class ListViewViewModel extends BaseViewModel {
   }
 
   // onButtonTap({
-  //   @required String key,
-  //   @required String value,
+  //   required String key,
+  //   required String value,
   // }) {
   //   filters[key] = value;
   //   pagewiseLoadController.reset();
@@ -316,12 +312,10 @@ class ListViewViewModel extends BaseViewModel {
           }
         }
 
-        var offlinedesktopPageResponse =
-            OfflineStorage.getItem('${desktopPage}Doctypes')["data"];
+        var offlinedesktopPageResponse = OfflineStorage.getItem('${desktopPage}Doctypes')["data"];
 
         if (offlinedesktopPageResponse != null) {
-          desktopPageResponse =
-              DesktopPageResponse.fromJson(offlinedesktopPageResponse);
+          desktopPageResponse = DesktopPageResponse.fromJson(offlinedesktopPageResponse);
         } else {
           throw ErrorResponse(
             statusCode: HttpStatus.serviceUnavailable,
@@ -396,9 +390,7 @@ class ListViewViewModel extends BaseViewModel {
 
   List<DoctypeField> getFilterableFields(List<DoctypeField> fields) {
     return fields.where((field) {
-      return field.fieldtype != "Section Break" &&
-          field.fieldtype != "Column Break" &&
-          field.hidden != 1;
+      return field.fieldtype != "Section Break" && field.fieldtype != "Column Break" && field.hidden != 1;
     }).toList();
   }
 }

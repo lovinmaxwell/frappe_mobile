@@ -43,7 +43,8 @@ class StorageService {
   }
 
   Future<bool?> getSharedPrefBoolValue(String key) async {
-    var _prefs = await SharedPreferences.getInstance();
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    // _prefs.setString('name', ((key != null) ? key : ""));
     await _prefs.reload();
     return _prefs.getBool(key);
   }

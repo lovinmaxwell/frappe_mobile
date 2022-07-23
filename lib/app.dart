@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
@@ -42,7 +41,7 @@ class _FrappeAppState extends State<FrappeApp> {
   @override
   Widget build(BuildContext context) {
     var theme = ThemeData(
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
       ),
@@ -57,14 +56,13 @@ class _FrappeAppState extends State<FrappeApp> {
       child: LifeCycleManager(
         child: StreamProvider<ConnectivityStatus>(
           initialData: ConnectivityStatus.offline,
-          create: (context) =>
-              ConnectivityService().connectionStatusController.stream,
+          create: (context) => ConnectivityService().connectionStatusController.stream,
           child: MaterialApp(
             builder: EasyLoading.init(),
             debugShowCheckedModeBanner: false,
             title: 'Frappe',
             theme: theme,
-            localizationsDelegates: [
+            localizationsDelegates: const [
               FormBuilderLocalizations.delegate,
             ],
             home: GestureDetector(
@@ -76,8 +74,8 @@ class _FrappeAppState extends State<FrappeApp> {
                     ? _isLoggedIn
                         ? HomeView()
                         : Login()
-                    : Center(
-                        child: CircularProgressIndicator(),
+                    : const Center(
+                        child: const CircularProgressIndicator(),
                       ),
               ),
             ),

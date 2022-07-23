@@ -72,7 +72,7 @@ class FormView extends StatelessWidget {
               builder: (context) {
                 if (model.error != null) {
                   return handleError(
-                      error: model.error,
+                      error: model.error!,
                       context: context,
                       onRetry: () {
                         model.communicationOnly = true;
@@ -152,8 +152,7 @@ class FormView extends StatelessWidget {
                                 horizontal: 20,
                               ),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Flexible(
                                     child: Text(
@@ -188,8 +187,7 @@ class FormView extends StatelessWidget {
                               },
                               fields: model.meta.fields.where(
                                 (field) {
-                                  return field.hidden != 1 &&
-                                      field.fieldtype != "Column Break";
+                                  return field.hidden != 1 && field.fieldtype != "Column Break";
                                 },
                               ).toList(),
                               formHelper: formHelper,
@@ -240,12 +238,11 @@ class FormView extends StatelessWidget {
                               refreshCallback: () {
                                 model.getDocinfo();
                               },
-                              emailSubjectField:
-                                  docs[0][model.meta.subjectField] ??
-                                      getTitle(
-                                        model.meta,
-                                        docs[0],
-                                      ),
+                              emailSubjectField: docs[0][model.meta.subjectField] ??
+                                  getTitle(
+                                    model.meta,
+                                    docs[0],
+                                  ),
                               emailSenderField: docs[0][model.meta.senderField],
                             ),
                           ],
@@ -378,8 +375,7 @@ class DocInfo extends StatelessWidget {
                     : null,
                 actionIcon: FrappeIcons.attachment,
                 onTap: () async {
-                  List<UploadedFile>? uploadedFiles =
-                      await showModalBottomSheet(
+                  List<UploadedFile>? uploadedFiles = await showModalBottomSheet(
                     context: context,
                     useRootNavigator: true,
                     isScrollControlled: true,

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:injectable/injectable.dart';
 
 import '../utils/enums.dart';
@@ -8,8 +8,7 @@ import '../utils/enums.dart';
 @lazySingleton
 class ConnectivityService {
   // Create our public controller
-  StreamController<ConnectivityStatus> connectionStatusController =
-      StreamController<ConnectivityStatus>();
+  StreamController<ConnectivityStatus> connectionStatusController = StreamController<ConnectivityStatus>();
 
   ConnectivityService() {
     // Subscribe to the connectivity Chanaged Steam

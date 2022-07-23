@@ -81,9 +81,9 @@ class LoginViewModel extends BaseViewModel {
           loginRequest.usr,
         );
 
+        await DioHelper.initCookies();
         await cacheAllUsers();
         await initAwesomeItems();
-        await DioHelper.initCookies();
         getSystemSettings();
 
         loginButtonLabel = "Success";

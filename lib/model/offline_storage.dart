@@ -56,8 +56,7 @@ class OfflineStorage {
     );
 
     if (isIsolate) {
-      var runBackgroundTask = await locator<StorageService>()
-          .getSharedPrefBoolValue("backgroundTask");
+      var runBackgroundTask = await locator<StorageService>().getSharedPrefBoolValue("backgroundTask");
       if (runBackgroundTask ?? false) {
         await storage.putAll(v);
       }
@@ -93,9 +92,9 @@ class OfflineStorage {
       var deskSideBarItems = await locator<Api>().getDeskSideBarItems();
       var desktopPage = await locator<Api>().getDesktopPage(module);
 
-      desktopPage.message.cards.items.forEach((item) {
+      for (var item in desktopPage.message.cards.items!) {
         doctypes.addAll(item.links);
-      });
+      }
 
       cache["${module}Doctypes"] = desktopPage.toJson();
       cache['deskSidebarItems'] = deskSideBarItems.toJson();
@@ -239,8 +238,7 @@ class OfflineStorage {
   }
 
   static Future<bool> storeApiResponse() async {
-    var storeApiResponse =
-        await locator<StorageService>().getSharedPrefBoolValue(
+    var storeApiResponse = await locator<StorageService>().getSharedPrefBoolValue(
       "storeApiResponse",
     );
     return storeApiResponse ?? true;
@@ -265,8 +263,7 @@ class OfflineStorage {
         } else {
           throw ErrorResponse(
             statusCode: HttpStatus.serviceUnavailable,
-            statusMessage:
-                "$doctype is currently not available for offline use",
+            statusMessage: "$doctype is currently not available for offline use",
           );
         }
       }

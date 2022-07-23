@@ -66,8 +66,8 @@ class _LoginState extends State<Login> {
                               name: 'serverURL',
                               initialValue: model.savedCreds.serverURL,
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(context),
-                                FormBuilderValidators.url(context),
+                                FormBuilderValidators.required(),
+                                FormBuilderValidators.url(),
                               ]),
                               decoration: Palette.formFieldDecoration(
                                 label: "Server URL",
@@ -83,14 +83,13 @@ class _LoginState extends State<Login> {
                               name: 'usr',
                               initialValue: model.savedCreds.usr,
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(context),
+                                FormBuilderValidators.required(),
                               ]),
                               decoration: Palette.formFieldDecoration(
                                 label: "Email Address",
                               ),
                             ),
-                            field: DoctypeField(
-                                fieldname: "email", label: "Email Address"),
+                            field: DoctypeField(fieldname: "email", label: "Email Address"),
                           ),
                           PasswordField(),
                           FrappeFlatButton(
@@ -119,18 +118,15 @@ class _LoginState extends State<Login> {
                                       loginRequest,
                                     );
 
-                                    if (loginResponse.verification != null &&
-                                        loginResponse.tmpId != null) {
+                                    if (loginResponse.verification != null && loginResponse.tmpId != null) {
                                       showModalBottomSheet(
                                         context: context,
                                         useRootNavigator: true,
                                         isScrollControlled: true,
-                                        builder: (context) =>
-                                            VerificationBottomSheetView(
+                                        builder: (context) => VerificationBottomSheetView(
                                           loginRequest: loginRequest,
                                           tmpId: loginResponse.tmpId!,
-                                          message: loginResponse
-                                              .verification!.prompt,
+                                          message: loginResponse.verification!.prompt,
                                         ),
                                       );
                                     } else {
@@ -140,8 +136,7 @@ class _LoginState extends State<Login> {
                                       );
                                     }
                                   } on ErrorResponse catch (e) {
-                                    if (e.statusCode ==
-                                        HttpStatus.unauthorized) {
+                                    if (e.statusCode == HttpStatus.unauthorized) {
                                       FrappeAlert.errorAlert(
                                         title: "Not Authorized",
                                         subtitle: e.statusMessage,
@@ -192,12 +187,10 @@ class VerificationBottomSheetView extends StatefulWidget {
   });
 
   @override
-  _VerificationBottomSheetViewState createState() =>
-      _VerificationBottomSheetViewState();
+  _VerificationBottomSheetViewState createState() => _VerificationBottomSheetViewState();
 }
 
-class _VerificationBottomSheetViewState
-    extends State<VerificationBottomSheetView> {
+class _VerificationBottomSheetViewState extends State<VerificationBottomSheetView> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
   @override
@@ -223,7 +216,7 @@ class _VerificationBottomSheetViewState
                       control: FormBuilderTextField(
                         name: 'otp',
                         validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(context),
+                          FormBuilderValidators.required(),
                         ]),
                         decoration: Palette.formFieldDecoration(
                           label: "Verification",
@@ -335,7 +328,7 @@ class _PasswordFieldState extends State<PasswordField> {
             maxLines: 1,
             name: 'pwd',
             validator: FormBuilderValidators.compose([
-              FormBuilderValidators.required(context),
+              FormBuilderValidators.required(),
             ]),
             obscureText: _hidePassword,
             decoration: Palette.formFieldDecoration(

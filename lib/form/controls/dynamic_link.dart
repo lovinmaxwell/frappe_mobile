@@ -74,8 +74,7 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
     //   enabled = true;
     // }
 
-    if (widget.doc[widget.doctypeField.fieldname] != null &&
-        widget.doctypeField.setOnlyOnce == 1) {
+    if (widget.doc[widget.doctypeField.fieldname] != null && widget.doctypeField.setOnlyOnce == 1) {
       enabled = false;
     } else {
       enabled = true;
@@ -84,7 +83,7 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
     return Theme(
       data: Theme.of(context).copyWith(primaryColor: Colors.black),
       child: FormBuilderTypeAhead(
-        key: widget.key,
+        key: widget.key!,
         enabled: enabled,
         onChanged: (val) {
           // if (widget.onControlChanged != null) {
@@ -96,7 +95,7 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
           //   );
           // }
         },
-        controller: widget.controller,
+        controller: widget.controller!,
         initialValue: widget.doc[widget.doctypeField.fieldname],
         direction: AxisDirection.up,
         onSuggestionSelected: (item) {
@@ -111,15 +110,12 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
         validator: FormBuilderValidators.compose(validators),
         decoration: Palette.formFieldDecoration(
           label: widget.doctypeField.label,
-          suffixIcon: widget.doc[widget.doctypeField.fieldname] != null &&
-                  widget.doc[widget.doctypeField.fieldname] != ""
+          suffixIcon: widget.doc[widget.doctypeField.fieldname] != null && widget.doc[widget.doctypeField.fieldname] != ""
               ? IconButton(
                   onPressed: () {
                     pushNewScreen(
                       context,
-                      screen: FormView(
-                          doctype: widget.doc[widget.doctypeField.options],
-                          name: widget.doc[widget.doctypeField.fieldname]),
+                      screen: FormView(doctype: widget.doc[widget.doctypeField.options], name: widget.doc[widget.doctypeField.fieldname]),
                     );
                   },
                   icon: FrappeIcon(
@@ -163,21 +159,17 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
               // var isOnline = await verifyOnline();
               var isOnline = true;
               if (!isOnline) {
-                var linkFull = await OfflineStorage.getItem(
-                    '${widget.doctypeField.options}LinkFull');
+                var linkFull = await OfflineStorage.getItem('${widget.doctypeField.options}LinkFull');
                 linkFull = linkFull["data"];
 
                 if (linkFull != null) {
                   return linkFull["results"].where(
                     (link) {
-                      return (link["value"] as String)
-                          .toLowerCase()
-                          .contains(lowercaseQuery);
+                      return (link["value"] as String).toLowerCase().contains(lowercaseQuery);
                     },
                   ).toList();
                 } else {
-                  var queryLink = await OfflineStorage.getItem(
-                      '$lowercaseQuery${widget.doctypeField.options}Link');
+                  var queryLink = await OfflineStorage.getItem('$lowercaseQuery${widget.doctypeField.options}Link');
                   queryLink = queryLink["data"];
 
                   if (queryLink != null) {

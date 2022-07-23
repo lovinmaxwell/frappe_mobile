@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -12,16 +10,16 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'utils/helpers.dart';
 import 'utils/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'scheduler.dart';
 import 'app/locator.dart';
 import 'app.dart';
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await SharedPreferences.getInstance();
   setupLocator();
   await resetValues();
   await initDb();
@@ -40,7 +38,6 @@ void main() async {
 }
 
 void downloadCallback(String id, DownloadTaskStatus status, int progress) {
-  final SendPort send =
-      IsolateNameServer.lookupPortByName('downloader_send_port');
-  send.send([id, status, progress]);
+  final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port');
+  send?.send([id, status, progress]);
 }

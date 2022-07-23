@@ -59,7 +59,7 @@ class CustomListView extends StatelessWidget {
             )
           : model.hasError
               ? handleError(
-                  error: model.error,
+                  error: model.error!,
                   context: context,
                   onRetry: () {
                     model.meta = meta;
@@ -72,8 +72,7 @@ class CustomListView extends StatelessWidget {
                     return Future.value(model.refresh());
                   },
                   child: Scaffold(
-                    floatingActionButtonLocation:
-                        FloatingActionButtonLocation.centerFloat,
+                    floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
                     floatingActionButton: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -84,8 +83,7 @@ class CustomListView extends StatelessWidget {
                               meta.docs[0].fields,
                             );
 
-                            List<Filter> appliedFilters =
-                                await showModalBottomSheet(
+                            List<Filter> appliedFilters = await showModalBottomSheet(
                               useRootNavigator: true,
                               context: context,
                               isScrollControlled: true,
@@ -150,8 +148,7 @@ class CustomListView extends StatelessWidget {
                                 itemCount: model.filters.length,
                                 itemBuilder: (context, index) {
                                   var filter = model.filters[index];
-                                  var txt =
-                                      "${filter.field.label} ${filter.filterOperator.label} ${filter.value}";
+                                  var txt = "${filter.field.label} ${filter.filterOperator.label} ${filter.value}";
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0,
@@ -175,8 +172,7 @@ class CustomListView extends StatelessWidget {
                                       onDeleted: () {
                                         model.removeFilter(index);
                                       },
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
+                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                     ),
                                   );
                                 },
@@ -277,11 +273,9 @@ class CustomListView extends StatelessWidget {
     required Function onButtonTap,
     required ListViewViewModel model,
   }) {
-    var assignee =
-        data["_assign"] != null ? json.decode(data["_assign"]) : null;
+    var assignee = data["_assign"] != null ? json.decode(data["_assign"]) : null;
 
-    var likedBy =
-        data["_liked_by"] != null ? json.decode(data["_liked_by"]) : [];
+    var likedBy = data["_liked_by"] != null ? json.decode(data["_liked_by"]) : [];
     var isLikedByUser = likedBy.contains(model.userId);
 
     var seenBy = data["_seen"] != null ? json.decode(data["_seen"]) : [];
@@ -450,9 +444,7 @@ class SortByButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FrappeIcon(
-            sortOrder == "desc"
-                ? FrappeIcons.sort_descending
-                : FrappeIcons.sort_ascending,
+            sortOrder == "desc" ? FrappeIcons.sort_descending : FrappeIcons.sort_ascending,
             color: Colors.white,
           ),
           SizedBox(
@@ -508,7 +500,7 @@ class ShowSiblingDoctypes extends StatelessWidget {
               builder: (context) {
                 List<Widget> listItems = [];
 
-                model.desktopPageResponse.message.cards.items.forEach(
+                model.desktopPageResponse.message.cards.items!.forEach(
                   (item) {
                     listItems.add(Column(
                       children: [
@@ -540,9 +532,7 @@ class ShowSiblingDoctypes extends StatelessWidget {
                                 visualDensity: VisualDensity(
                                   vertical: -4,
                                 ),
-                                tileColor: title == link.label
-                                    ? Palette.bgColor
-                                    : Colors.white,
+                                tileColor: title == link.label ? Palette.bgColor : Colors.white,
                                 title: Text(link.label),
                                 onTap: () {
                                   model.switchDoctype(

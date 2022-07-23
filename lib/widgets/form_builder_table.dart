@@ -31,8 +31,7 @@ class FormBuilderTable<T> extends FormBuilderField<T> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   var value = (initialValue as List);
-                  var metaFields =
-                      (snapshot.data as DoctypeResponse).docs[0].fields;
+                  var metaFields = (snapshot.data as DoctypeResponse).docs[0].fields;
                   var tableFields = metaFields.where((field) {
                     return field.inListView == 1;
                   }).toList();
@@ -57,8 +56,7 @@ class FormBuilderTable<T> extends FormBuilderField<T> {
                     },
                   );
 
-                  colCount =
-                      columns.length < colCount ? columns.length : colCount;
+                  colCount = columns.length < colCount ? columns.length : colCount;
 
                   if (value.isEmpty) {
                     var v = {};
@@ -93,8 +91,7 @@ class FormBuilderTable<T> extends FormBuilderField<T> {
                                     return TableElement(
                                       doc: val,
                                       fields: tableFields,
-                                      meta: (snapshot.data as DoctypeResponse)
-                                          .docs[0],
+                                      meta: (snapshot.data as DoctypeResponse).docs[0],
                                     );
                                   },
                                 ),
@@ -114,17 +111,15 @@ class FormBuilderTable<T> extends FormBuilderField<T> {
                               vertical: 2.0,
                             ),
                             decoration: BoxDecoration(
-                              borderRadius:
-                                  value.length - 1 == index[0] && index[1] == 0
+                              borderRadius: value.length - 1 == index[0] && index[1] == 0
+                                  ? BorderRadius.only(
+                                      bottomLeft: Radius.circular(6),
+                                    )
+                                  : value.length - 1 == index[0] && index[1] == colCount - 1
                                       ? BorderRadius.only(
-                                          bottomLeft: Radius.circular(6),
+                                          bottomRight: Radius.circular(6),
                                         )
-                                      : value.length - 1 == index[0] &&
-                                              index[1] == colCount - 1
-                                          ? BorderRadius.only(
-                                              bottomRight: Radius.circular(6),
-                                            )
-                                          : null,
+                                      : null,
                               border: Border.all(
                                 width: 0.1,
                               ),
@@ -133,8 +128,7 @@ class FormBuilderTable<T> extends FormBuilderField<T> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 cellValue,
-                                textAlign:
-                                    isNum ? TextAlign.end : TextAlign.start,
+                                textAlign: isNum ? TextAlign.end : TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 14.0,
                                 ),
@@ -145,8 +139,7 @@ class FormBuilderTable<T> extends FormBuilderField<T> {
                         tableHeaderBuilder: (header, index) {
                           return ConstrainedBox(
                             constraints: BoxConstraints(
-                              minWidth:
-                                  MediaQuery.of(context).size.width / colCount,
+                              minWidth: MediaQuery.of(context).size.width / colCount,
                             ),
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -169,9 +162,7 @@ class FormBuilderTable<T> extends FormBuilderField<T> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   header!,
-                                  textAlign: numFields.contains(header)
-                                      ? TextAlign.end
-                                      : TextAlign.start,
+                                  textAlign: numFields.contains(header) ? TextAlign.end : TextAlign.start,
                                   style: TextStyle(
                                     fontSize: 14.0,
                                     color: FrappePalette.grey[600],
@@ -236,8 +227,7 @@ class FormBuilderTable<T> extends FormBuilderField<T> {
   FormBuilderTableState<T> createState() => FormBuilderTableState<T>();
 }
 
-class FormBuilderTableState<T>
-    extends FormBuilderFieldState<FormBuilderTable<T>, T> {}
+class FormBuilderTableState<T> extends FormBuilderFieldState<FormBuilderTable<T>, T> {}
 
 class TableElement extends StatefulWidget {
   final DoctypeDoc meta;
